@@ -114,23 +114,15 @@ public class InicialGestorParametrosDE {
 	private static void hacerLlamadaAlgoritmoProgrDinam() {
 		if (hayFicheroEntrada) {
 			ManejadorDeFichero.LeeFichero(ficheroEntrada);
-			char[] entrada = ManejadorDeFichero.getCadenaOrigen().toCharArray();
-			char[] salida  = ManejadorDeFichero.getCadenaDestino().toCharArray();			
-			AlgoritmoProgrDinamica distanciaEdicionProgrDinam = new AlgoritmoProgrDinamica();
-			resultado = distanciaEdicionProgrDinam.distanciaEdicionProgDinamica(entrada, salida);
 		}
 		else {
-			// TODO manejarlo por pantalla
-			// pedir datos por pantalla y meterlos en "entrada"
-			// "salida" por pantalla/fichSalida 
 			System.out.println("DATOS ENTRADA");
-			manejoFicheros.leeEstandarEntrada(esTrazaActiva);
-			char[] entrada = ManejadorDeFichero.getCadenaOrigen().toCharArray();
-			char[] salida  = ManejadorDeFichero.getCadenaDestino().toCharArray();			
-			AlgoritmoProgrDinamica distanciaEdicionProgrDinam = new AlgoritmoProgrDinamica();
-			resultado = distanciaEdicionProgrDinam.distanciaEdicionProgDinamica(entrada, salida);
+			ManejadorDeFichero.leeEstandarEntrada(esTrazaActiva);
 		}
-		
+		char[] entrada = ManejadorDeFichero.getCadenaOrigen().toCharArray();
+		char[] salida  = ManejadorDeFichero.getCadenaDestino().toCharArray();			
+		AlgoritmoProgrDinamica distanciaEdicionProgrDinam = new AlgoritmoProgrDinamica();
+		resultado = distanciaEdicionProgrDinam.distanciaEdicionProgDinamica(entrada, salida);
 	}
 
 }
