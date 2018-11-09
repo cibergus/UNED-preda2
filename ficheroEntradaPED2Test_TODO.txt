@@ -1,0 +1,163 @@
+a
+a
+
+a
+b
+
+casa
+calle
+
+igual
+igual
+
+xxxborrar
+borrar
+
+borrarxxx
+borrar
+
+borrar
+xxxborrar
+
+borrar
+borrarxxx
+
+borrar
+xxxborrarxxx
+
+xxxborrarxxx
+borrar
+
+bbbadd
+addxxx
+
+ssbaaa
+ppbaxaa
+
+___________________________________________________
+___________________________________________________
+
+casa
+calle
+
+ *no tocar* 1   c -> c
+ *no tocar* 2   a -> a
+inserción   3        l
+sustitución 4   s -> l
+sustitución 5   a -> e
+3 es la distancia mínima de edición
+
+igual
+igual
+
+ *no tocar* 1   i -> i
+ *no tocar* 2   g -> g
+ *no tocar* 3   u -> u
+ *no tocar* 4   a -> a
+ *no tocar* 5   l -> l
+0 es la distancia mínima de edición
+
+xxxborrar
+borrar
+
+borrado     0   x
+borrado     0   x
+borrado     0   x
+ *no tocar* 1   b -> b
+ *no tocar* 2   o -> o
+ *no tocar* 3   r -> r
+ *no tocar* 4   r -> r
+ *no tocar* 5   a -> a
+ *no tocar* 6   r -> r
+3 es la distancia mínima de edición
+
+borrarxxx
+borrar
+
+ *no tocar* 1   b -> b
+ *no tocar* 2   o -> o
+ *no tocar* 3   r -> r
+ *no tocar* 4   r -> r
+ *no tocar* 5   a -> a
+ *no tocar* 6   r -> r
+borrado     6   x
+borrado     6   x
+borrado     6   x
+3 es la distancia mínima de edición
+
+borrar
+xxxborrar
+
+inserción   1        x
+inserción   2        x
+inserción   3        x
+ *no tocar* 4   b -> b
+ *no tocar* 5   o -> o
+ *no tocar* 6   r -> r
+ *no tocar* 7   r -> r
+ *no tocar* 8   a -> a
+ *no tocar* 9   r -> r
+3 es la distancia mínima de edición
+
+borrar
+borrarxxx
+
+ *no tocar* 1   b -> b
+ *no tocar* 2   o -> o
+ *no tocar* 3   r -> r
+ *no tocar* 4   r -> r
+ *no tocar* 5   a -> a
+ *no tocar* 6   r -> r
+inserción   7        x
+inserción   8        x
+inserción   9        x
+
+3 es la distancia mínima de edición
+
+borrar
+xxxborrarxxx
+
+inserción   1        x
+inserción   2        x
+inserción   3        x
+ *no tocar* 4   b -> b
+ *no tocar* 5   o -> o
+ *no tocar* 6   r -> r
+ *no tocar* 7   r -> r
+ *no tocar* 8   a -> a
+ *no tocar* 9   r -> r
+inserción   10        x
+inserción   11        x
+inserción   12        x
+
+6 es la distancia mínima de edición
+
+xxxborrarxxx
+borrar
+
+borrado     0   x
+borrado     0   x
+borrado     0   x
+ *no tocar* 1   b -> b
+ *no tocar* 2   o -> o
+ *no tocar* 3   r -> r
+ *no tocar* 4   r -> r
+ *no tocar* 5   a -> a
+ *no tocar* 6   r -> r
+borrado     6   x
+borrado     6   x
+borrado     6   x
+
+6 es la distancia mínima de edición
+
+ssbaaa
+ppbaxaa
+
+sustitución 1   s -> p
+sustitución 2   s -> p
+ *no tocar* 3   b -> b
+ *no tocar* 4   a -> a
+inserción   5        x
+ *no tocar* 6   a -> a
+ *no tocar* 7   a -> a
+3 es la distancia mínima de edición
