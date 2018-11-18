@@ -1,34 +1,39 @@
-/**
- * @author	Augusto Javier Ibañez Garcia
- * 	 email: aibanez122@alumno.uned.es
- * 	 DNI:   25.404.287M
- * @version 2.0 => X7 Noviembre 2018  / 1.0 => 8 Octubre 2018
- *
+/*
+  @author    Augusto Javier Ibañez Garcia
+  	 email:  aibanez122@alumno.uned.es
+  	 DNI:    25.404.287M
+  @version 3.1 => M13 Noviembre 2018  / 1.0 => D8 Octubre 2018
+
  */
 
 package preda_de;
 
-import preda_de.AlgoritmoProgrDinamica;
-import preda_de.ManejadorDeFichero;
+import static preda_de.GestorDeTexto.imprimeMensajeAyuda;
 
-public class InicialGestorParametrosDE {	
+class Edicion {
 	static boolean esTrazaActiva;
 	static boolean esAyudaActiva;
-	static boolean hayFicheroEntrada = false;
-	static boolean hayFicheroSalida = false;
-	static String ficheroEntrada = null;
-	public static String ficheroSalida = null; 
-	static String parametroUltimo;
+	private static boolean hayFicheroEntrada;
+	private static String ficheroEntrada;
+	static boolean hayFicheroSalida;
+	static String  ficheroSalida;
+    static String parametroUltimo;
 	static String parametroPenultimo;
-	static int resultado = 0;
+    private static int resultado;
 
-	static ManejadorDeFichero manejoFicheros = new ManejadorDeFichero();
-	static AlgoritmoProgrDinamica ProgrDinamica = new AlgoritmoProgrDinamica();
 
-	public static void main(String[] args) {
+    static {
+        resultado = 0;
+        ficheroEntrada = null;
+        hayFicheroEntrada = false;
+    }
+
+    private static final AlgoritmoProgrDinamica ProgrDinamica = new AlgoritmoProgrDinamica();
+
+    public static void main(String[] args) {
 		asignarParametros(args);
 		if (esAyudaActiva)
-			GestorDeTexto.imprimeMensajeAyuda();
+            imprimeMensajeAyuda();
 		else
 			gestionarLlamadaInicial();
 	}
@@ -38,12 +43,12 @@ public class InicialGestorParametrosDE {
 		esAyudaActiva = false;
 		parametroUltimo = null;
 		parametroPenultimo = null;
-		int numeroParametrosSiAyudaOTraza = 0;
-		int numeroRealParametros = args.length;
-		int numeroParametrosSinAyudaNiTraza = 0;
+        int numeroRealParametros = args.length;
+		int numeroParametrosSinAyudaNiTraza;
 
 		try{
-			if (numeroRealParametros != 0) {
+            int numeroParametrosSiAyudaOTraza = 0;
+            if (numeroRealParametros != 0) {
 				asignaParametrosUltimoYPenultimo(args, numeroRealParametros);
 				numeroParametrosSiAyudaOTraza = cuentaSiAyuda_y_o_Traza(args, numeroRealParametros);
 			}
@@ -62,7 +67,7 @@ public class InicialGestorParametrosDE {
 			parametroPenultimo = args[numeroRealParametros - 2];
 	}
 
-	public static int cuentaSiAyuda_y_o_Traza(String[] args, int numeroRealParametros) {
+	private static int cuentaSiAyuda_y_o_Traza(String[] args, int numeroRealParametros) {
 		int cuentaParametros = 0;
 		for (int i=0; i<= numeroRealParametros - 1 ;i++) {
 			if (args[i].equals("-h")) {
@@ -79,13 +84,8 @@ public class InicialGestorParametrosDE {
 
 	private static void asignaParametrosFicherosES(int numeroParametrosSinAyudaNiTraza) {
 		boolean paramUltimoNoEsTrazaNiEsAyuda = !(parametroUltimo.equals("-t")) && !(parametroUltimo.equals("-h"));
-		if (numeroParametrosSinAyudaNiTraza ==  2) {	
-			if (paramUltimoNoEsTrazaNiEsAyuda ) {
-				hayFicheroSalida = true;
-				ficheroSalida = parametroUltimo;
-				ManejadorDeFichero.inicializarFicheroSalida(ficheroSalida);
-			}
-			boolean paramPenultimoNoEsTrazaNiEsAyuda = !(parametroPenultimo.equals("-t")) && !(parametroPenultimo.equals("-h"));
+		if (numeroParametrosSinAyudaNiTraza ==  2) {
+            boolean paramPenultimoNoEsTrazaNiEsAyuda = !(parametroPenultimo.equals("-t")) && !(parametroPenultimo.equals("-h"));
 			if (paramPenultimoNoEsTrazaNiEsAyuda ) {
 				hayFicheroEntrada = true;
 				ficheroEntrada = parametroPenultimo;
@@ -97,9 +97,7 @@ public class InicialGestorParametrosDE {
 				ficheroEntrada = parametroUltimo;
 			}				
 		}
-		ManejadorDeFichero.hayFicheroSalida = hayFicheroSalida;
-		ManejadorDeFichero.ficheroSalida	= ficheroSalida;
-	}
+    }
 
 	private static void gestionarLlamadaInicial() {
 		try {
@@ -112,17 +110,13 @@ public class InicialGestorParametrosDE {
 	}
 
 	private static void hacerLlamadaAlgoritmoProgrDinam() {
-		if (hayFicheroEntrada) {
-			ManejadorDeFichero.LeeFichero(ficheroEntrada);
-		}
-		else {
-			System.out.println("DATOS ENTRADA");
-			ManejadorDeFichero.leeEstandarEntrada(esTrazaActiva);
-		}
-		char[] entrada = ManejadorDeFichero.getCadenaOrigen().toCharArray();
-		char[] salida  = ManejadorDeFichero.getCadenaDestino().toCharArray();			
-		AlgoritmoProgrDinamica distanciaEdicionProgrDinam = new AlgoritmoProgrDinamica();
-		resultado = distanciaEdicionProgrDinam.distanciaEdicionProgDinamica(entrada, salida);
+		if (hayFicheroEntrada)
+            GestorDeFichero.LeeFichero(ficheroEntrada);
+		else
+            GestorDeFichero.leeEstandarEntrada();
+		char[] entrada = GestorDeFichero.getCadenaOrigen().toCharArray();
+		char[] salida  = GestorDeFichero.getCadenaDestino().toCharArray();
+		resultado = ProgrDinamica.distanciaEdicionProgDinamica(entrada, salida);
+        System.out.println(resultado);
 	}
-
 }
