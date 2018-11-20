@@ -1,30 +1,124 @@
-/**
- * @author	Augusto Javier Ibañez Garcia
+/*
+  @author	Augusto Javier Ibañez Garcia
  * 	 email: aibanez122@alumno.uned.es
  * 	 DNI:   25.404.287M
  * @version 1.8 => D18 Noviembre 2018  / 1.0 => 8 Octubre 2018
- *
  */
 
 package preda_de;
 
 import java.util.Stack;
 
-public class AlgoritmoProgrDinamica {
+class AlgoritmoProgrDinamica {
     private final String textoBorrar = "b";
     private final String textoInsertar = "i";
     private final String textoSustituir = "s";
+    private final String textoNoTocar = "n";
+    private int casillaATratar;
 
-    public int distanciaEdicionProgDinamica(char[] cadenaInicial, char[] cadenaFinal){
+    int distanciaEdicionProgDinamica(char[] cadenaInicial, char[] cadenaFinal){
         String infoInicial = imprimeInfoInicial(String.valueOf(cadenaInicial), String.valueOf(cadenaFinal));
         enviarTextoA_Pantalla_O_Fichero(infoInicial);
         int[][] matrizResolucion = crearMatrizResolucion(cadenaInicial, cadenaFinal);
         int valorDistanciaEdicion = matrizResolucion[cadenaInicial.length][cadenaFinal.length];
         enviarTextoA_Pantalla_O_Fichero(String.valueOf(valorDistanciaEdicion));
-        Stack rutaObtenida = rutaASeguirSegunMatrizResolucion(matrizResolucion);
+        Stack<String> rutaObtenida = rutaASeguirSegunMatrizResolucion(matrizResolucion);
         sacarLineas(rutaObtenida, cadenaInicial, cadenaFinal);
+
+//        Stack<String> rutaObtenidaSimple = rutaASeguirSegunMatrizResolucionSimple(matrizResolucion);
+//        sacarLineasSimple(rutaObtenidaSimple, cadenaInicial, cadenaFinal);
+
         return valorDistanciaEdicion;
     }
+
+//    private void sacarLineasSimple(Stack<String> pilaChequeo, char[] cadenaInicial, char[] cadenaFinal) {
+//        int gusLongitudCadenaFinal = Math.max(cadenaInicial.length, cadenaFinal.length);
+//        char[] gusVectorCadenaCambiante = new char[gusLongitudCadenaFinal];
+////        for (int i=0;i < gusVectorCadenaCambiante.length;i++)
+////            gusVectorCadenaCambiante[i] = ' ';
+//        System.arraycopy(cadenaInicial, 0, gusVectorCadenaCambiante, 0, cadenaInicial.length);
+////        int borrados = 0;
+//
+//        int celda = 0;
+//        while (!pilaChequeo.isEmpty()) {
+//            String linea = pilaChequeo.pop();
+//
+//            int linea_numeroOrigen = Integer.valueOf(linea);
+//
+//            char[] sourceArray;
+//            int startingPositionSourceArray;
+//            char[] targetArray;
+//            int startingPositionTargetArray;
+//            int numeroElementosACopiar;
+////            int celda = 0;
+//            boolean empiezaBorrando;
+//
+//            switch (linea) {
+//                case textoNoTocar:
+//                    empiezaBorrando = false;
+//                    if (celda != 0)
+//                      celda++;
+//                    break;
+//
+//                case textoBorrar:
+//                    sourceArray = gusVectorCadenaCambiante;
+//                    startingPositionSourceArray = linea_numeroOrigen;
+//                    targetArray = gusVectorCadenaCambiante;
+//                    startingPositionTargetArray = linea_numeroOrigen - 1;
+//                    numeroElementosACopiar = gusVectorCadenaCambiante.length - linea_numeroOrigen;
+//                    System.arraycopy(sourceArray, startingPositionSourceArray, targetArray, startingPositionTargetArray, numeroElementosACopiar);
+//                    gusVectorCadenaCambiante[gusVectorCadenaCambiante.length - 1] = ' ';
+//                    if (celda == 0)
+//                        empiezaBorrando = true;
+//                    else empiezaBorrando = false;
+//                   if (empiezaBorrando){
+//                       System.out.println(
+//                               "borrar "
+//                                       + "1 "
+//                                       + String.valueOf(gusVectorCadenaCambiante));
+//                   }
+//                   else {
+//                       System.out.println(
+//                               "borrar "
+//                                       + celda + " "
+//                                       + String.valueOf(gusVectorCadenaCambiante));
+//                       linea_numeroOrigen--;
+//                       celda++;
+//                   }
+//                    break;
+//
+//                case textoInsertar :
+//                    empiezaBorrando = false;
+//                    sourceArray = gusVectorCadenaCambiante;
+//                    startingPositionSourceArray = linea_numeroOrigen - 1;
+//                    targetArray = gusVectorCadenaCambiante;
+//                    startingPositionTargetArray = linea_numeroOrigen ;
+//                    numeroElementosACopiar = gusVectorCadenaCambiante.length - linea_numeroOrigen;
+//                    if (linea_numeroOrigen == gusVectorCadenaCambiante.length)
+//                        gusVectorCadenaCambiante[linea_numeroOrigen - 1] = cadenaFinal[linea_numeroOrigen - 1];
+//                    else {
+//                        System.arraycopy(sourceArray, startingPositionSourceArray, targetArray, startingPositionTargetArray, numeroElementosACopiar);
+//                        gusVectorCadenaCambiante[linea_numeroOrigen - 1] = cadenaFinal[linea_numeroOrigen - 1];
+//                    }
+//                    System.out.println(
+//                            "insertar "
+//                                    + celda + " "
+//                                    + String.valueOf(gusVectorCadenaCambiante));
+//                    break;
+//                case textoSustituir:
+//                    empiezaBorrando = false;
+//
+//                  gusVectorCadenaCambiante[linea_numeroOrigen - 1] = cadenaFinal[linea_numeroOrigen - 1];
+////                    gusVectorCadenaCambiante[linea_numeroOrigen - 1] = cadenaFinal[linea_numeroDestino - 1];
+////                    gusVectorCadenaCambiante[linea_numeroOrigen - 1] = cadenaFinal[Math.min(linea_numeroOrigen, linea_numeroDestino) - 1];
+//                    System.out.println(
+//                            "sustituir "
+//                                    + celda + " "
+//                                    + String.valueOf(gusVectorCadenaCambiante));
+//                    celda++;
+//            }
+//        }
+//    }
 
     private void enviarTextoA_Pantalla_O_Fichero(String texto) {
         if (Edicion.hayFicheroSalida)
@@ -40,6 +134,42 @@ public class AlgoritmoProgrDinamica {
                 + cadenaFinal);
     }
 
+//    Stack<String> rutaASeguirSegunMatrizResolucionSimple(int[][] matrizResolucion) {
+//        Stack <String> pilaChequeo = new Stack <>();
+//        int[][] test = {{0}};
+//        boolean isMatrizResolucionVacia = isMatrizResolucionVacia(matrizResolucion, test);
+//        boolean matrizResolucionBorrar;
+//        boolean matrizResolucionInsertar;
+//        boolean matrizResolucionSustituir;
+//
+//        if (isMatrizResolucionVacia)
+//            return pilaChequeo;
+//        int fila_I = matrizResolucion.length - 1;
+//        int colu_F = matrizResolucion[0].length - 1;
+//        while (fila_I != 0 && colu_F != 0) {
+//            matrizResolucionBorrar = (matrizResolucion[fila_I][colu_F] == matrizResolucion[fila_I - 1][colu_F] + 1);
+//            matrizResolucionInsertar = (matrizResolucion[fila_I][colu_F] == matrizResolucion[fila_I][colu_F - 1] + 1);
+//            matrizResolucionSustituir = (matrizResolucion[fila_I][colu_F] == matrizResolucion[fila_I - 1][colu_F - 1] + 1);
+//            if (matrizResolucionBorrar) {
+//                pilaChequeo.push(textoBorrar);
+//                fila_I--;
+//            } else if (matrizResolucionInsertar) {
+//                pilaChequeo.push(textoInsertar);
+//                colu_F--;
+//            } else if (matrizResolucionSustituir) {
+//                pilaChequeo.push(textoSustituir);
+//                fila_I--;
+//                colu_F--;
+//            } else {
+//                pilaChequeo.push(textoNoTocar);
+//                fila_I--;
+//                colu_F--;
+//            }
+//        }
+//        return pilaChequeo;
+//    }
+
+
     Stack<String> rutaASeguirSegunMatrizResolucion(int[][] matrizResolucion) {
         Stack<String> pilaChequeo = new Stack<>();
         int[][]test = {{0}};
@@ -48,44 +178,54 @@ public class AlgoritmoProgrDinamica {
         boolean matrizResolucionInsertar;
         boolean matrizResolucionSustituir;
         String espacio = " ";
-        if (isMatrizResolucionVacia) {
+        String uno = "1";
+        if (isMatrizResolucionVacia)
             return pilaChequeo;
-        }
         int fila_I = matrizResolucion.length - 1;
         int colu_F = matrizResolucion[0].length - 1;
         int i = Math.max(fila_I, colu_F);
+        boolean esPrimeroBorrar = true;
         while (fila_I != 0 && colu_F != 0) {
             matrizResolucionBorrar    = (matrizResolucion[fila_I][colu_F] == matrizResolucion[fila_I - 1] [colu_F]     + 1);
             matrizResolucionInsertar  = (matrizResolucion[fila_I][colu_F] == matrizResolucion[fila_I]     [colu_F - 1] + 1);
             matrizResolucionSustituir = (matrizResolucion[fila_I][colu_F] == matrizResolucion[fila_I - 1] [colu_F - 1] + 1);
             if (matrizResolucionBorrar) {
-                pilaChequeo.push(textoBorrar + espacio + i--);
-                fila_I--;
+                if (esPrimeroBorrar) {
+                    pilaChequeo.push(textoBorrar + espacio + uno);  i--;
+                    fila_I--;
+                }
+                else {
+                    pilaChequeo.push(textoBorrar + espacio + i--);   i++;
+                    fila_I--;
+                    esPrimeroBorrar = false;
+                }
             } else if (matrizResolucionInsertar) {
                 pilaChequeo.push(textoInsertar + espacio + i--);
                 colu_F--;
+                esPrimeroBorrar = false;
             } else if (matrizResolucionSustituir) {
                 pilaChequeo.push(textoSustituir + espacio + i--);
                 fila_I--;
                 colu_F--;
+                esPrimeroBorrar = false;
             } else {
-                i--;
+                pilaChequeo.push(textoNoTocar + espacio + i--);
+                //i--;
                 fila_I--;
                 colu_F--;
+                esPrimeroBorrar = false;
             }
         }
-        do {
-            int posicion = 1;
-            while (fila_I > 0) {
-                pilaChequeo.push(textoBorrar + espacio + posicion);
-                fila_I--;
-            }
-            while (colu_F > 0) {
-                pilaChequeo.push(textoInsertar + espacio + posicion);
-                colu_F--;
-            }
-            return pilaChequeo;
-        } while (fila_I == 0 | colu_F == 0);
+        int posicion = 1;
+        while (fila_I > 0) {
+            pilaChequeo.push(textoBorrar + espacio + posicion);
+            fila_I--;
+        }
+        while (colu_F > 0) {
+            pilaChequeo.push(textoInsertar + espacio + posicion);
+            colu_F--;
+        }
+        return pilaChequeo;
     }
 
     private boolean isMatrizResolucionVacia(int[][] matrizResolucion, int[][] test) {
@@ -125,11 +265,15 @@ public class AlgoritmoProgrDinamica {
         for (int i=0;i < gusVectorCadenaCambiante.length;i++)
             gusVectorCadenaCambiante[i] = ' ';
         System.arraycopy(cadenaInicial, 0, gusVectorCadenaCambiante, 0, cadenaInicial.length);
+        int borrados = 0;
+        casillaATratar = 1;
+
         while (!pilaChequeo.isEmpty()) {
             String[] linea = pilaChequeo.pop().split(" ");
             String linea_accion = linea[0];
             String linea_numeroEnTexto = linea[1];
-            int linea_numero = Integer.valueOf(linea_numeroEnTexto);
+            int linea_numeroOrigen = Integer.valueOf(linea_numeroEnTexto);
+            int linea_numeroDestino = linea_numeroOrigen - borrados;
             char[] sourceArray;
             int startingPositionSourceArray;
             char[] targetArray;
@@ -138,43 +282,73 @@ public class AlgoritmoProgrDinamica {
 
             switch (linea_accion) {
                 case textoBorrar:
+                    borrados++;
                     sourceArray = gusVectorCadenaCambiante;
-                    startingPositionSourceArray = linea_numero;
+                    startingPositionSourceArray = linea_numeroOrigen;
                     targetArray = gusVectorCadenaCambiante;
-                    startingPositionTargetArray = linea_numero - 1;
-                    numeroElementosACopiar = gusVectorCadenaCambiante.length - linea_numero;
+                    startingPositionTargetArray = linea_numeroOrigen - 1;
+                    numeroElementosACopiar = gusVectorCadenaCambiante.length - linea_numeroOrigen;
                     System.arraycopy(sourceArray, startingPositionSourceArray, targetArray, startingPositionTargetArray, numeroElementosACopiar);
                     gusVectorCadenaCambiante[gusVectorCadenaCambiante.length - 1] = ' ';
                     System.out.println(
                             "borrar "
                                     + linea_numeroEnTexto + " "
-                                    + String.valueOf(gusVectorCadenaCambiante));
+//                                    + " =" + casillaATratar + " "
+                                    + String.valueOf(gusVectorCadenaCambiante)
+
+                    );
+                    linea_numeroDestino--;
                     break;
                 case textoInsertar :
                     sourceArray = gusVectorCadenaCambiante;
-                    startingPositionSourceArray = linea_numero - 1;
+                    startingPositionSourceArray = linea_numeroOrigen - 1;
                     targetArray = gusVectorCadenaCambiante;
-                    startingPositionTargetArray = linea_numero ;
-                    numeroElementosACopiar = gusVectorCadenaCambiante.length - linea_numero;
-                    if (linea_numero == gusVectorCadenaCambiante.length)
-                        gusVectorCadenaCambiante[linea_numero - 1] = cadenaFinal[linea_numero - 1];
+                    startingPositionTargetArray = linea_numeroOrigen ;
+                    numeroElementosACopiar = gusVectorCadenaCambiante.length - linea_numeroOrigen;
+                    if (linea_numeroOrigen == gusVectorCadenaCambiante.length)
+                        gusVectorCadenaCambiante[linea_numeroOrigen - 1] = cadenaFinal[linea_numeroOrigen - 1];
                     else {
                         System.arraycopy(sourceArray, startingPositionSourceArray, targetArray, startingPositionTargetArray, numeroElementosACopiar);
-                        gusVectorCadenaCambiante[linea_numero - 1] = cadenaFinal[linea_numero - 1];
+                        gusVectorCadenaCambiante[linea_numeroOrigen - 1] = cadenaFinal[linea_numeroOrigen - 1];
                     }
                     System.out.println(
                             "insertar "
                                     + linea_numeroEnTexto + " "
-                                    + String.valueOf(gusVectorCadenaCambiante));
+//                                    + " =" + casillaATratar + " "
+                                    + String.valueOf(gusVectorCadenaCambiante)
+                    );
+                    casillaATratar++;
                     break;
                 case textoSustituir:
-                    gusVectorCadenaCambiante[linea_numero - 1] = cadenaFinal[linea_numero - 1];
+
+//                  gusVectorCadenaCambiante[linea_numeroOrigen - 1] = cadenaFinal[linea_numeroOrigen - 1];
+                    gusVectorCadenaCambiante[linea_numeroOrigen - 1] = cadenaFinal[linea_numeroDestino - 1];
+//                    gusVectorCadenaCambiante[linea_numeroOrigen - 1] = cadenaFinal[Math.min(linea_numeroOrigen, linea_numeroDestino) - 1];
                     System.out.println(
                             "sustituir "
-                            + linea_numeroEnTexto + " "
-                            + String.valueOf(gusVectorCadenaCambiante));
+                                    + linea_numeroEnTexto + " "
+//                                    + " =" + casillaATratar + " "
+                                    + String.valueOf(gusVectorCadenaCambiante)
+                    );
+                    casillaATratar++;
+                    break;
+
+                default:
+//                    gusVectorCadenaCambiante[linea_numeroOrigen - 1] = cadenaFinal[linea_numeroDestino - 1];
+                    System.out.println(
+                            "no tocar "
+                                    + linea_numeroEnTexto + " "
+//                                    + " =" + casillaATratar + " "
+                                    + String.valueOf(gusVectorCadenaCambiante)
+                    );
+                    casillaATratar++;
+
             }
         }
+    }
+
+    public int getCasillaATratar(){
+        return casillaATratar;
     }
 
 //    public void impresorLineaSustituir(Stack <String> pilaCaminoSoluciones, int fila, int colum, char[] cadenaTemporal, char[] cadenaInicial) {
