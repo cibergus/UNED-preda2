@@ -1,7 +1,5 @@
 /*
-  @author	Augusto Javier Ibañez Garcia
- * 	 email: aibanez122@alumno.uned.es
- * 	 DNI:   25.404.287M
+  @author	cibergus
  * @version 1.0 => X7 Noviembre 2018  ///  1.0 => X7 Noviembre 2018
  */
 
