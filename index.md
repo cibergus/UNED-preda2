@@ -1,4 +1,5 @@
-# (UNED-GradoII-PrEDA) [preda2](https://cibergus.github.io/preda2/)  
+# PrEDA2
+## [PrEDA2](https://cibergus.github.io/preda2/) (UNED-GradoII-PrEDA)  
 Programming and Advanced Data Structures    
 - (Subject from Bachelor's degree in Computer Engineering)  
 
